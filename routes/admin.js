@@ -4,7 +4,9 @@ const { adminModel } = require('../db');  // this now works
 // call the router function
 const adminRouter = Router();
 
-adminRouter.post("/signup", function (_, res) {
+adminRouter.post("/signup", function (req, res) {
+  const email = req.body.username;
+  
   res.json({
     message: "signup endpoint"
   });
