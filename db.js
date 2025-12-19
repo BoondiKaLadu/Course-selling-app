@@ -1,5 +1,5 @@
 const  mongoose = require("mongoose");
-mongoose.connect("mongodb+srv://admin:Aditya%401320@cluster0.pj1eck8.mongodb.net/Course-selling");
+mongoose.connect("mongodb+srv://admin:Aditya%401320@cluster0.pj1eck8.mongodb.net/Course-selling?retryWrites=true&w=majority&authSource=admin");
 
 const Schema = mongoose.Schema;
 const ObjectId = mongoose.Types.ObjectId;
@@ -51,7 +51,7 @@ const courseModel   = mongoose.model("course", coursesSchema);
 const purchaseModel = mongoose.model("purchase", purchaseSchema);
 
 
-
+// its module.exports remember this
 
 module.exports = {
     userModel,
