@@ -120,7 +120,51 @@ const course = await courseModel.create({
   });
 });
 
-adminRouter.get("/bulk",adminMiddleware, function (req, res) {
+adminRouter.put("/course-editing", adminMiddleware, async function (req, res) {
+  // from the admin.js middleware line => req.userID = decoded.id;
+  // this id (userId) is what we take from admin as request object
+  // and put it in adminId variable
+const adminId = req.userId;
+const {title, description, imageurl, price, courseId} = req.body;
+// check the database schema created for storing
+// courses created by the admin in db.js file
+
+
+
+
+
+const course = await courseModel.updateOne({
+_id : courseId
+},
+
+{
+  // only update the course where courseId and creator Id match
+  // so that creators do not edit each other's course.
+
+
+ title,
+ description,
+ price,
+ imageurl,
+ 
+
+})
+
+  res.json({
+    message: "course updated",
+    courseId : course._id
+  });
+
+});
+
+adminRouter.get("/bulk", adminMiddleware, async function (req, res) {
+
+  const adminId = req.userId;
+  const course = await courseModel.find({
+   creatorId : adminId
+
+  });
+
   res.json({
     message: "bulk endpoint"
   });
@@ -128,3 +172,4 @@ adminRouter.get("/bulk",adminMiddleware, function (req, res) {
 
 // CommonJS export
 module.exports = adminRouter;
+
